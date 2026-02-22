@@ -1,38 +1,42 @@
 class Solution:
-    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        row, col = len(mat), len(mat[0])
+    def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
+        row = len(mat)
+        col= len(mat[0])
 
-        up_ward = True
-        res = []
+        if mat == target:
+                return True
+        temp = [[0]*col for _ in range(row)]
+        # first rotation
+        for i in range(row):
+            for j in range(col):
+                temp[j][col-i-1] = mat[i][j]
 
-        r,c = 0,0
+        if temp == target:
+            return True
+        
+        mat = temp
+        
+        temp = [[0]*col for _ in range(row)]
+        # second rotation
+        for i in range(row):
+            for j in range(col):
+                temp[j][col-i-1] = mat[i][j]
 
-        while len(res) != row*col:
-            if up_ward:
-                while r >= 0 and c < col:
-                    res.append(mat[r][c])
-                    r -= 1
-                    c += 1
-                if c == col:
-                    r +=2
-                    c -=1
-                else:
-                    r += 1
-                
-                up_ward = False
+        if temp == target:
+            return True
+        
+        mat = temp
 
-            else:
-                while r < row and c >= 0:
-                    res.append(mat[r][c])
-                    c -=1
-                    r += 1
-                    
-                if r == row:
-                    c += 2
-                    r -= 1
-                else:
-                    c += 1
+        temp = [[0]*col for _ in range(row)]
+        # third rotation
+        for i in range(row):
+            for j in range(col):
+                temp[j][col-i-1] = mat[i][j]
 
-                up_ward = True
-    
-        return res
+        if temp == target:
+            return True
+
+        return False
+
+
+
