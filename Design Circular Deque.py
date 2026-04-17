@@ -6,7 +6,7 @@ class MyCircularDeque:
         self.size = 0
 
         self.front = 0
-        self.rear = 0
+        self.rear = -1
 
         
     def insertFront(self, value: int) -> bool:
@@ -27,10 +27,10 @@ class MyCircularDeque:
         if self.isFull():
             return False
 
+        self.rear = (self.rear + 1) % self.k
+
         self.array[self.rear] = value
         
-        # place value at rear 
-        self.rear = (self.rear + 1) % self.k
         self.size += 1
         return True
         
@@ -69,7 +69,7 @@ class MyCircularDeque:
             return -1
 
          # rear points to NEXT empty slot (so actual rear is one step behind)
-        return self.array[(self.rear - 1 + self.k) % self.k]
+        return self.array[self.rear]
         
 
     def isEmpty(self) -> bool:
