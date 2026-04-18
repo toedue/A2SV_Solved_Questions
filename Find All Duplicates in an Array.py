@@ -1,10 +1,15 @@
-from collections import Counter 
-
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
+        nums.sort()
         result = []
-        d = Counter(nums)
-        for k in d.keys():
-            if d[k] == 2:
-                result.append(k)
+
+        for num in nums:
+            index = abs(num) - 1
+
+            if nums[index] < 0:
+                result.append(abs(num))
+
+            else:
+                nums[index] = -nums[index]
+
         return result
